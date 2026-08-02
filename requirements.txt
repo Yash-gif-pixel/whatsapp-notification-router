@@ -1,0 +1,13 @@
+# Message Notification Router - third-party dependencies.
+# Versions pinned to what the submitted output.csv was produced with.
+
+# Required always. Used by every phase for typed CSV loading and joins.
+pandas==3.0.3
+numpy==2.4.6
+
+# Required only to REGENERATE media descriptions / LLM decisions from scratch.
+# Reproducing the submitted output.csv from code/artifacts/ needs neither of
+# these, and neither is imported at module import time - both are loaded lazily
+# inside the functions that make API calls.
+anthropic==0.120.2
+google-genai==2.16.0

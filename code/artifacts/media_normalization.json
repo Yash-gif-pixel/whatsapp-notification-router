@@ -1,0 +1,280 @@
+{
+  "generated_at": "2026-08-01T16:50:06+00:00",
+  "entries": {
+    "img_002": {
+      "media_id": "img_002",
+      "media_kind": "image",
+      "file_path": "media/images/img_002.jpg",
+      "message_ids": [
+        "msg_064"
+      ],
+      "processing_error": null,
+      "created_at": "2026-08-01T16:36:37+00:00",
+      "normalized_text": "This image is a promotional poster advertising movie ticket offers from PVR INOX. The text prominently displays \"WATCH THE BIGGEST CINEMATIC EPIC IN 4DX | MX4D AT AN UNBEATABLE PRICE\", \"TICKETS NOW STARTING AT ₹199\", \"ONLY ON 21ST JUL'26\", alongside a poster for \"THE ODYSSEY\" (17.07.26) and the prompt \"FOR BOOKINGS VISIT PVR OR INOX WEBSITE / APP\". The poster features the official PVR INOX logo matching the text and contains date-specific promotional urgency, but includes no QR codes, direct links, or requests for sensitive personal details.",
+      "provider": "gemini",
+      "model": "gemini-3.6-flash"
+    },
+    "img_003": {
+      "media_id": "img_003",
+      "media_kind": "image",
+      "file_path": "media/images/img_003.jpg",
+      "message_ids": [
+        "msg_027",
+        "msg_028"
+      ],
+      "processing_error": null,
+      "created_at": "2026-08-01T16:36:45+00:00",
+      "normalized_text": "This is a promotional poster for Ladakh travel packages from \"Happy Holidayers\". Text visible on the poster includes \"LADAKH TOUR PACKAGES\", \"EXPERIENCE THE MAGIC OF LADAKH\", \"UP TO 40% OFF\", \"BOOK NOW\", the phone number \"+91 98056 07657\", and the website \"www.happyholidayers.com\", along with package details for sightseeing, transfers, meals, and stay. There are no QR codes, threat language, or requests for direct payment, and the \"Happy Holidayers\" branding consistent with the provided URL.",
+      "provider": "gemini",
+      "model": "gemini-3.6-flash"
+    },
+    "img_004": {
+      "media_id": "img_004",
+      "media_kind": "image",
+      "file_path": "media/images/img_004.jpg",
+      "message_ids": [
+        "msg_031"
+      ],
+      "processing_error": null,
+      "created_at": "2026-08-01T16:36:52+00:00",
+      "normalized_text": "This is a screenshot of a Google Calendar event invitation pop-up window titled \"Incident Review\". Visible text shows the meeting is scheduled for \"Friday, August 7 · 12:00 – 12:50pm\" with 3 guests listed: Shloka Shah (Organizer), Akarsh Jain, and Pawan K. Additional visible elements include an option to \"Take meeting notes\", a notification set for \"10 minutes before\", and RSVP response buttons (\"Yes\", \"No\", \"Maybe\"). No payment requests, QR codes, shortened links, or urgent/threat language are present in the image.",
+      "provider": "gemini",
+      "model": "gemini-3.6-flash"
+    },
+    "img_007": {
+      "media_id": "img_007",
+      "media_kind": "image",
+      "file_path": "media/images/img_007.jpg",
+      "message_ids": [
+        "msg_049"
+      ],
+      "processing_error": null,
+      "created_at": "2026-08-01T16:37:00+00:00",
+      "normalized_text": "This is a casual photo of a brown paper delivery bag resting on a white tabletop. The text printed on the front of the bag reads \"Jio Mart\" alongside a red circular logo. There are no payment requests, contact details, links, QR codes, or urgent messages visible in the image.",
+      "provider": "gemini",
+      "model": "gemini-3.6-flash"
+    },
+    "img_008": {
+      "media_id": "img_008",
+      "media_kind": "image",
+      "file_path": "media/images/img_008.jpg",
+      "message_ids": [
+        "msg_005",
+        "msg_029",
+        "msg_030"
+      ],
+      "processing_error": null,
+      "created_at": "2026-08-01T16:37:06+00:00",
+      "normalized_text": "This is a casual photo showing a long clothing rack filled with an assortment of colorful vintage dresses and garments inside a shop. There is no readable text visible in the image. The image contains no payment details, requests for personal information, QR codes, links, urgency indicators, or brand logos.",
+      "provider": "gemini",
+      "model": "gemini-3.6-flash"
+    },
+    "img_010": {
+      "media_id": "img_010",
+      "media_kind": "image",
+      "file_path": "media/images/img_010.jpg",
+      "message_ids": [
+        "msg_065",
+        "msg_066"
+      ],
+      "processing_error": null,
+      "created_at": "2026-08-01T16:37:11+00:00",
+      "normalized_text": "This is a promotional poster advertising an Amazon Prime Day sale promotion. The visible text reads \"amazon Prime Day\", \"UP TO 60% OFF\", \"2X CASHBACK\", \"24-30 JUNE\", \"UP TO 11.2% CASHBACK\", and \"EXCLUSIVE ON SHOPCASH\". The graphic features the Amazon logo alongside a logo for Shopcash, specifies event dates from 24-30 June, and contains no QR codes, links, requests for personal information, or urgent threat language.",
+      "provider": "gemini",
+      "model": "gemini-3.6-flash"
+    },
+    "img_011": {
+      "media_id": "img_011",
+      "media_kind": "image",
+      "file_path": "media/images/img_011.jpg",
+      "message_ids": [
+        "msg_077"
+      ],
+      "processing_error": null,
+      "created_at": "2026-08-01T16:37:17+00:00",
+      "normalized_text": "This is an official notice or document featuring two identical printable \"FIELD TRIP CONSENT FORM\" templates on one page. The form includes blank fill-in fields for student name, \"TRIP DESTINATION:\", \"DATE:\", \"DEPARTURE TIME:\", and \"RETURN TIME:\", alongside signature lines for \"(Signature of Parent/Guardian)\", \"(Date of Signature)\", \"(Address)\", and \"(Telephone Number)\" under liability text mentioning the \"Board of Education, Swartz Creek Community Schools\". The form requests personal contact information and a signature for permission, but contains no QR codes, links, requests for payment, or urgency language.",
+      "provider": "gemini",
+      "model": "gemini-3.6-flash"
+    },
+    "img_012": {
+      "media_id": "img_012",
+      "media_kind": "image",
+      "file_path": "media/images/img_012.jpg",
+      "message_ids": [
+        "msg_060"
+      ],
+      "processing_error": null,
+      "created_at": "2026-08-01T16:37:24+00:00",
+      "normalized_text": "This image is an official notice announcing the \"IIT BOMBAY RESEARCH INTERNSHIP 2023-24\" issued by the Industrial Research and Consultancy Center (IRCC) at the Indian Institute of Technology Bombay. The document outlines eligibility requirements for full-time research internships taking place between December 2023 and June 2024, directing inquiries to the email `internship@ircc.iitb.ac.in` and further details to `https://www.ircc.iitb.ac.in/IRCC-Webpage/IITBInternship/`. It displays the official IIT Bombay crest logo matching the text, contains no payment requests or QR codes, and uses authentic institutional domain links without high-urgency language.",
+      "provider": "gemini",
+      "model": "gemini-3.6-flash"
+    },
+    "img_023": {
+      "media_id": "img_023",
+      "media_kind": "image",
+      "file_path": "media/images/img_023.jpg",
+      "message_ids": [
+        "msg_062"
+      ],
+      "processing_error": null,
+      "created_at": "2026-08-01T16:44:40+00:00",
+      "normalized_text": "This content is a missing person flyer featuring a photo of a teenage boy with glasses. The visible text reads \"MISSING PERSON\", \"Missing from: 4-11-2025\", \"AGE: 16\", \"NAME:- MELWYN\", \"Door number 9 first Amani first cross Kasturi Nagar East of NGEF\", \"Landmark Hyderabad Irani tea shop\", and \"Plz help contacts:- 7348978260 / 9686674558 / 9741011528\". The poster contains an urgent plea for help and lists multiple mobile phone numbers, but shows no QR codes, links, brand logos, or requests for payment.",
+      "provider": "gemini",
+      "model": "gemini-3.5-flash"
+    },
+    "img_024": {
+      "media_id": "img_024",
+      "media_kind": "image",
+      "file_path": "media/images/img_024.jpg",
+      "message_ids": [
+        "msg_053"
+      ],
+      "processing_error": null,
+      "created_at": "2026-08-01T16:37:53+00:00",
+      "normalized_text": "This is a technical stock market chart depicting a daily Renko chart for the Nifty 50 index. Text visible on the chart includes \"Nifty 50 - D - 1% - CMP: 15863.20(-2.35%) - 07-03-2022\", \"Nifty 50, Spot, Daily\", \"1% Brick Size, Renko Chart\", and an annotation stating \"Price breaks the prior swing low which is a sign of bearishness. The negative crossover in the moving averages confirms short-term weakness\". The image contains no requests for personal information or payment, no QR codes, no URLs, and no urgency or threat language.",
+      "provider": "gemini",
+      "model": "gemini-3.6-flash"
+    },
+    "img_025": {
+      "media_id": "img_025",
+      "media_kind": "image",
+      "file_path": "media/images/img_025.jpg",
+      "message_ids": [
+        "msg_074"
+      ],
+      "processing_error": null,
+      "created_at": "2026-08-01T16:38:00+00:00",
+      "normalized_text": "This is a promotional poster advertising land plots for sale by \"Ingoude Company\". The poster reads \"LAND PLOT FOR SALE\" and \"Secure your dream investment! Prime land plots available\", highlighting features such as \"strategic location\", \"high value\", and \"future growth\", alongside contact information including the phone number \"+123-456-7890\" and website \"www.reallygreatsite.com\". It contains placeholder contact details typical of a graphic design template, with no QR codes, payment requests, or threat language present.",
+      "provider": "gemini",
+      "model": "gemini-3.6-flash"
+    },
+    "vn_004": {
+      "media_id": "vn_004",
+      "media_kind": "voice",
+      "file_path": "media/audio/vn_004.mp3",
+      "message_ids": [
+        "msg_081"
+      ],
+      "processing_error": null,
+      "created_at": "2026-08-01T16:38:09+00:00",
+      "normalized_text": "Hi, this is from school transport. Today's pickup will be from Gate 2 instead of the main gate. Please reach by 3:40.",
+      "provider": "gemini",
+      "model": "gemini-3.6-flash",
+      "transcription_confidence": "high",
+      "language": "english",
+      "notes": ""
+    },
+    "vn_005": {
+      "media_id": "vn_005",
+      "media_kind": "voice",
+      "file_path": "media/audio/vn_005.mp3",
+      "message_ids": [
+        "msg_082"
+      ],
+      "processing_error": null,
+      "created_at": "2026-08-01T16:38:22+00:00",
+      "normalized_text": "Checkout error rates spiking again. Please join the incident bridge now. Payments are failing for live users.",
+      "provider": "gemini",
+      "model": "gemini-3.6-flash",
+      "transcription_confidence": "high",
+      "language": "english",
+      "notes": ""
+    },
+    "vn_006": {
+      "media_id": "vn_006",
+      "media_kind": "voice",
+      "file_path": "media/audio/vn_006.mp3",
+      "message_ids": [
+        "msg_083"
+      ],
+      "processing_error": null,
+      "created_at": "2026-08-01T16:38:41+00:00",
+      "normalized_text": "Can you check the onboarding doc tomorrow morning? Nothing urgent, I just want your comments before lunch.",
+      "provider": "gemini",
+      "model": "gemini-3.6-flash",
+      "transcription_confidence": "high",
+      "language": "english",
+      "notes": ""
+    },
+    "vn_007": {
+      "media_id": "vn_007",
+      "media_kind": "voice",
+      "file_path": "media/audio/vn_007.mp3",
+      "message_ids": [
+        "msg_084"
+      ],
+      "processing_error": null,
+      "created_at": "2026-08-01T16:50:06+00:00",
+      "normalized_text": "credit cards in partnership with HDFC Bank, and you're among the first to be invited. These cards offer up to 10% cashback on every Swiggy, food and Instamart order. These cards also offer up to 24% off on travel. The best part, we're offering them to you free for lifetime. To be the first to own the new Swiggy card, press 1 now.",
+      "provider": "gemini",
+      "model": "gemini-3.5-flash",
+      "transcription_confidence": "high",
+      "language": "english",
+      "notes": ""
+    },
+    "vn_008": {
+      "media_id": "vn_008",
+      "media_kind": "voice",
+      "file_path": "media/audio/vn_008.mp3",
+      "message_ids": [
+        "msg_085"
+      ],
+      "processing_error": null,
+      "created_at": "2026-08-01T16:38:59+00:00",
+      "normalized_text": "Your bank account will be blocked today. Share the OTP you receive so we can complete verification immediately.",
+      "provider": "gemini",
+      "model": "gemini-3.6-flash",
+      "transcription_confidence": "high",
+      "language": "english",
+      "notes": ""
+    },
+    "vn_009": {
+      "media_id": "vn_009",
+      "media_kind": "voice",
+      "file_path": "media/audio/vn_009.mp3",
+      "message_ids": [
+        "msg_086"
+      ],
+      "processing_error": null,
+      "created_at": "2026-08-01T16:39:11+00:00",
+      "normalized_text": "Your airport pickup for tomorrow has moved to 6:15 AM. The driver and hotel booking remain the same.",
+      "provider": "gemini",
+      "model": "gemini-3.6-flash",
+      "transcription_confidence": "high",
+      "language": "english",
+      "notes": ""
+    },
+    "vn_012": {
+      "media_id": "vn_012",
+      "media_kind": "voice",
+      "file_path": "media/audio/vn_012.mp3",
+      "message_ids": [
+        "msg_088"
+      ],
+      "processing_error": null,
+      "created_at": "2026-08-01T16:39:20+00:00",
+      "normalized_text": "I've kept the blue jacket aside for you. If you still want it, please confirm before I show it to someone else.",
+      "provider": "gemini",
+      "model": "gemini-3.6-flash",
+      "transcription_confidence": "high",
+      "language": "english",
+      "notes": ""
+    },
+    "vn_014": {
+      "media_id": "vn_014",
+      "media_kind": "voice",
+      "file_path": "media/audio/vn_014.mp3",
+      "message_ids": [
+        "msg_087"
+      ],
+      "processing_error": null,
+      "created_at": "2026-08-01T16:39:32+00:00",
+      "normalized_text": "Hi, I'm Sahana. Called you regards to a new launch by Brigade in Whitefield. Spread across massive 40 acres, which has commercial, school, hospital, and residential apartments. 1, 2, 3, and 4 BHK apartments, starting 1 crore to 4 crore. Expression of interest has just started. Dial 1 if you're interested to know more, dial 2 to submit your EOI, dial 5 to repeat, and dial 8 to stop receiving message and to unsubscribe.",
+      "provider": "gemini",
+      "model": "gemini-3.6-flash",
+      "transcription_confidence": "high",
+      "language": "english",
+      "notes": ""
+    }
+  }
+}
