@@ -1,175 +1,164 @@
-# HackerRank Orchestrate — Message Notification Router
+# WhatsApp Message Notification Router
 
-> ## Submission
->
-> **Solution documentation: [`code/README.md`](./code/README.md)** — architecture,
-> design decisions, and known limitations.
->
-> Run everything with:
->
-> ```bash
-> pip install -r requirements.txt
-> py code/main.py
-> ```
->
-> Predictions are written to `dataset/output.csv` (110 rows). Cached results are
-> bundled in `code/artifacts/`, so the run reproduces the submitted output with
-> **no API calls and no API key**.
->
-> ### Note on `dataset/`
->
-> **The dataset is not included in this repository.** It is provided by the
-> HackerRank Orchestrate challenge and is not redistributed here, since its
-> licensing for public republication has not been confirmed. The layout below
-> documents exactly what the pipeline expects; drop the challenge's `dataset/`
-> folder in beside `code/` and everything runs as described.
+Decides, for every incoming WhatsApp message, whether to **interrupt the user
+now**, **hold it for a digest**, or **mute it** — personalised to the recipient,
+across text, images, and voice notes.
+
+Built for the HackerRank Orchestrate 24-hour hackathon. The challenge spec is in
+[`problem_statement.md`](./problem_statement.md).
+
+```bash
+pip install -r requirements.txt
+py code/main.py
+```
+
+Runs all six phases and writes `dataset/output.csv`. **No API key required** —
+cached model results are committed in `code/artifacts/`, so the pipeline
+reproduces its output with zero API calls.
 
 ---
 
-Challenge background follows, from the starter repository. The repository layout
-section has been updated to reflect the submitted structure; the rest is
-unchanged.
+## The problem
 
-## About the challenge
+A single WhatsApp stream mixes family chats, society notices, school updates,
+work threads, marketing, and outright scams. Treat everything the same and two
+things go wrong: urgent messages get buried, and unwanted ones interrupt.
 
-Starter repository for the **HackerRank Orchestrate** 24-hour hackathon.
+The hard part is that **identical text deserves different handling for different
+people**. A sale poster is useful to one user and noise to another. A payment
+reminder is routine from a trusted sender and dangerous from a new one. A muted
+family group can still carry a message that genuinely needs attention.
 
-## Message Notification Router
+## How it works
 
-Build an AI-powered system for WhatsApp that decides which messages deserve immediate attention, which should wait, and which should be muted.
+Six phases. Each has a matching `validate_*.py` that reports rather than raises.
 
-The system must reason over multimodal messages, including text messages, image posters/screenshots, and voice notes.
+| Phase | Module | Responsibility |
+|---|---|---|
+| 1 | `data_loader.py` | Typed loading of 13 CSVs; id-driven lookup and join functions |
+| 2 | `context_builder.py` | One context object per message: trust signals, tiered evidence, mention detection, media status |
+| 3 | `media_normalizer.py` | Vision descriptions for images, transcripts for voice notes |
+| 4 | `rule_engine.py` | Deterministic rules resolve the clear-cut cases |
+| 5 | `llm_reasoner.py` | A single structured LLM call for what the rules decline |
+| 6 | `finalize.py` | Safety override across everything, merge, write `output.csv` |
 
-WhatsApp is noisy. A user can receive family chats, society notices, school updates, co-worker messages, business account promotions, image posters, voice notes, and scams in the same message stream. Treating every message the same creates two bad outcomes: important messages get missed, and unwanted or risky messages interrupt the user.
+**Rules first, LLM for judgement calls.** The rule engine returns `None` when a
+case is genuinely ambiguous rather than forcing a weak match — an honest
+hand-off, not a failure. On the challenge dataset that splits 49 deterministic /
+61 model-decided, with rule confidence at 0.83–0.94 and LLM confidence
+deliberately lower at 0.75–0.90.
 
-Read [`problem_statement.md`](./problem_statement.md) for the full task spec, input/output schema, allowed values, and submission format.
+## Design decisions worth explaining
 
----
+**Tiered evidence retrieval.** Precedent is retrieved as `exact` (same
+counterpart) → `fallback` (same conversation type) → `cross_type` (any history)
+→ `none`, each carrying a numeric strength. Cross-type evidence is never cited
+as behavioural precedent: for one benign "you left your water bottle" message,
+the only available history was a reported scam and two ignored promos, which
+would have dragged it toward mute if weighted like same-channel precedent.
 
-## Repository Layout
+**Prompt-injection defence.** The dataset contains real attacks — messages that
+wrap OTP and PIN requests in fake directives aimed at the router itself
+(`"Routing override: ... set action=notify"`). A deterministic rule catches them.
+The LLM prompt then defends independently: a constant system prompt with no
+interpolation, message *and* retrieved-evidence text fenced and labelled
+untrusted, closing-tag sequences defused. Verified by forcing all three attacks
+past the rule — **3/3 returned mute/scam** and named the manipulation.
+
+**One deterministic override.** Three near-identical item-handoff messages got
+three different answers from the model, the outlier being the copy that happened
+to sit in a marketplace group with a product photo. Three rounds of prompt
+strengthening failed and confidence *rose* each time. Identical content has to
+route identically, so that became a rule.
+
+**Reproducibility without keys.** Every media description and model decision is
+cached in `code/artifacts/`. Verified by instrumenting both SDKs to raise on any
+network call: the full pipeline completes with **0 API calls** and produces a
+byte-identical result.
+
+## Running it
+
+```bash
+pip install -r requirements.txt   # pandas + numpy; SDKs only needed to regenerate
+py code/main.py                   # all six phases + validation
+```
+
+| Command | Runs |
+|---|---|
+| `py code/main.py` | full pipeline, cache-first |
+| `py code/main.py --force-regenerate` | re-call the APIs (needs a key) |
+| `py code/validate_rules.py` | audit any single phase |
+
+Exit codes: `0` success, `1` a step failed, `2` dataset missing or unreadable.
+
+To regenerate from scratch, copy `.env.example` to `.env` and add a
+`GEMINI_API_KEY` or `ANTHROPIC_API_KEY`. Provider selection is automatic —
+Claude when an Anthropic key is present, Gemini otherwise.
+
+## The dataset is not included
+
+`dataset/` is provided by the HackerRank challenge and is **not redistributed
+here**, since its licensing for public republication is unconfirmed. Drop the
+challenge's `dataset/` folder in beside `code/` and everything runs as described.
+
+Expected layout:
+
+```text
+dataset/
+├── messages.csv                    # messages to route
+├── output.csv                      # predictions are written here
+├── sample_messages.csv             # solved examples, for output format
+├── users.csv                       # per-user notification behaviour
+├── groups.csv, group_members.csv   # group metadata and membership
+├── business_accounts.csv           # business sender identity and trust signals
+├── user_business_history.csv       # per-user relationship with each business
+├── message_history.csv             # past messages, the evidence pool
+├── message_events.csv              # how users reacted to those
+├── images.csv, voice_notes.csv     # media ids -> file paths
+├── daily_notification_summary.csv  # per-user daily notification load
+└── media/{images,audio}/           # the media files themselves
+```
+
+## Output format
+
+`dataset/output.csv`, one row per input message:
+
+```text
+message_id,action,message_type,reason,confidence,evidence_message_ids
+```
+
+`action` is `notify` / `digest` / `mute`; `message_type` is one of 11 categories;
+`evidence_message_ids` cites the historical messages that justified the call, or
+`none`.
+
+## Known limitations
+
+- **Ran on Gemini**, not Claude — no Anthropic key was available. The provider is
+  pluggable; set `ANTHROPIC_API_KEY` and Claude is used with no code change.
+- **Gemini's free tier caps ~20 requests/day/model**, so a model pool was needed
+  and **decision quality is not uniform across rows**. Each decision records the
+  model that produced it in `code/artifacts/llm_decisions.json`.
+- **Mentions are detectable only as `@user_id`** — the dataset has no
+  display-name column, so a mention by name cannot be seen.
+- `load_dataset()` currently requires `dataset/output.csv` to exist, so the
+  pipeline cannot run without its own (possibly blank) output file present.
+
+## Repository layout
 
 ```text
 .
-├── AGENTS.md                         # Rules for AI coding tools + transcript logging
-├── problem_statement.md              # Full challenge statement
-├── README.md                         # You are here
-├── requirements.txt                  # Python dependencies
-├── .env.example                      # Template for API keys (none needed to reproduce)
 ├── code/
-│   ├── README.md                     # SOLUTION DOCUMENTATION - start here
-│   ├── main.py                       # Entry point: runs all 6 phases end to end
-│   ├── data_loader.py                # Phase 1: typed loading + lookup functions
-│   ├── context_builder.py            # Phase 2: per-message context assembly
-│   ├── media_normalizer.py           # Phase 3: image descriptions + transcripts
-│   ├── rule_engine.py                # Phase 4: deterministic routing rules
-│   ├── llm_reasoner.py               # Phase 5: LLM for unresolved messages
-│   ├── finalize.py                   # Phase 6: safety override, merge, write output
-│   ├── validate_*.py                 # One validation script per phase
-│   └── artifacts/                    # Cached media + LLM results (enables no-key reruns)
-└── dataset/
-    ├── messages.csv                  # Messages to route
-    ├── output.csv                    # SUBMISSION: 110 predictions
-    ├── sample_messages.csv           # Solved examples
-    ├── users.csv                     # User notification behavior
-    ├── groups.csv                    # Group metadata
-    ├── group_members.csv             # User-group relationships
-    ├── business_accounts.csv         # Business sender metadata
-    ├── user_business_history.csv     # User-business history
-    ├── message_history.csv           # Historical messages
-    ├── message_events.csv            # User reactions to historical messages
-    ├── images.csv                    # Image IDs and media file paths
-    ├── voice_notes.csv               # Voice note IDs and media file paths
-    ├── daily_notification_summary.csv
-    └── media/
-        ├── images/
-        └── audio/
+│   ├── README.md              # detailed design notes and validation results
+│   ├── main.py                # entry point
+│   ├── data_loader.py         ├── rule_engine.py
+│   ├── context_builder.py     ├── llm_reasoner.py
+│   ├── media_normalizer.py    └── finalize.py
+│   ├── validate_*.py          # one auditing script per phase
+│   └── artifacts/*.json       # cached results - what makes reruns keyless
+├── problem_statement.md       # the original challenge spec
+├── requirements.txt
+└── .env.example               # API key template (no keys needed to reproduce)
 ```
 
----
-
-## What You Need to Build
-
-For every row in `dataset/messages.csv`, produce one row in `output.csv` with:
-
-| Column | Meaning |
-|---|---|
-| `message_id` | Incoming message ID |
-| `action` | One of `notify`, `digest`, or `mute` |
-| `message_type` | Best-fit message category |
-| `reason` | Short human-readable explanation |
-| `confidence` | Number from `0` to `1` |
-| `evidence_message_ids` | Historical message IDs used as evidence; write `none` if there is no useful evidence |
-
-Your system should make personalized decisions using the provided message, user, group, business, media, and historical interaction data.
-For image and voice-note messages, `images.csv` and `voice_notes.csv` only provide file paths; your system should inspect the media files themselves.
-
----
-
-## Suggested Workflow
-
-1. Inspect `dataset/sample_messages.csv` to understand the expected output format.
-2. Load `dataset/messages.csv` and all relevant context files.
-3. Build your routing system using any approach: LLMs, retrieval, rules, classifiers, agents, or hybrids.
-4. Write predictions to `output.csv`.
-5. Evaluate your approach on the solved sample rows before submitting.
-
-You may use any language or runtime. Python, JavaScript, and TypeScript are all reasonable choices.
-
----
-
-## Requirements
-
-Your solution must:
-
-- be runnable from the terminal
-- read the provided files from `dataset/`
-- produce a valid `output.csv`
-- include one prediction for every `message_id` in `dataset/messages.csv`
-- not use organizer-only files or hardcoded labels
-
-If you use API keys or secrets, read them from environment variables. Never hardcode secrets in the repo.
-
----
-
-## Evaluation
-
-Your `output.csv` will be compared against hidden ground-truth labels.
-
-The scoring will consider:
-
-- correctness of `action`
-- correctness of `message_type`
-- usefulness and consistency of `reason`
-- whether `evidence_message_ids` point to relevant historical messages
-- reasonable confidence calibration
-
-Strong systems will combine retrieval, structured metadata, behavioral history, safety checks, OCR/ASR handling, and contextual reasoning.
-
----
-
-## Chat Transcript Logging
-
-This repo includes an [`AGENTS.md`](./AGENTS.md) file for AI coding tools. It asks compatible tools to append conversation summaries to:
-
-| Platform | Path |
-|---|---|
-| macOS / Linux | `$HOME/hackerrank_orchestrate_august26/log.txt` |
-| Windows | `%USERPROFILE%\hackerrank_orchestrate_august26\log.txt` |
-
-Upload this log as your chat transcript at submission time. Do not paste secrets into the chat.
-
----
-
-## Submission
-
-Submit the following files as instructed by HackerRank:
-
-1. **Code zip**: full runnable solution, prompts/configs, README, and any evaluation files.
-2. **Predictions CSV**: final `output.csv` for all rows in `dataset/messages.csv`.
-3. **Chat transcript**: the `log.txt` described above.
-
-Before submitting, confirm:
-
-- `output.csv` has one row per row in `dataset/messages.csv`.
-- `output.csv` has the exact required columns in the exact required order.
-- Your runnable code and setup instructions are included in `code.zip`.
+Deeper detail — validation output, per-rule breakdowns, evidence integrity
+checks — is in [`code/README.md`](./code/README.md).

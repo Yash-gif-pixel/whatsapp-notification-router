@@ -97,3 +97,7 @@ ipython_config.py
 Thumbs.db
 ehthumbs.db
 Desktop.ini
+
+# Agent tooling - local only, not part of the solution
+AGENTS.md
+CLAUDE.md
